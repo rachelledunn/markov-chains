@@ -1,19 +1,22 @@
 import sys
 
-def make_chains(corpus):
+def make_chains(corpus1,corpus2):
     """Takes input text as string; returns dictionary of markov chains."""
 
     markov_dict = {}
 
-    corpus = open(corpus)
+    corpus1 = open(corpus1) 
+    corpus2 = open(corpus2) 
 
     corpus_list = []
 
-    for line in corpus:
+    for line in corpus1:
         line = line.rstrip().split(" ") # extracting all words into lists
         corpus_list.extend(line) # add lines to the corpus_list to create one big list of words
 
-    print corpus_list
+    for line in corpus2:
+        line = line.rstrip().split(" ") # extracting all words into lists
+        corpus_list.extend(line) # add lines to the corpus_list to create one big list of words
 
     corpus_line = range(len(corpus_list) - 2)
 
@@ -25,8 +28,6 @@ def make_chains(corpus):
         else: # if this key does not exist, create key and value
             markov_dict[(corpus_list[i], corpus_list[i + 1])] = [corpus_list[i + 2]]
     
-    print "The Dictionary:"
-    print markov_dict
     return markov_dict
 
     """
@@ -75,11 +76,13 @@ def make_text(chains):
     while next_tuple in chains: # while the next tuple is included in the dictionary
         if next_tuple in chains.keys():
             new_value = chains[next_tuple] # sets the value of new_value if next_tuple exists in chains
-            new_value = new_value.pop() # sets new_value to random value of existing value list
 
-            next_tuple = (next_tuple[1], new_value)
-        
-        new_string = new_string + ' ' + next_tuple[1]
+            if new_value != []:
+                new_value = new_value.pop() # sets new_value to random value of existing value list
+                next_tuple = (next_tuple[1], new_value)
+                new_string = new_string + ' ' + next_tuple[1]
+            else:
+                next_tuple = ()      
             
     return new_string
 
@@ -120,12 +123,13 @@ def make_text(chains):
 # Python docs for sys.argv)
 
 
-script,filename = sys.argv
+# script,filename1 = sys.argv
+script,filename1,filename2 = sys.argv
 
-input_text = filename
+# input_text = filename
 
 # Get a Markov chain
-chain_dict = make_chains(input_text)
+chain_dict = make_chains(filename1,filename2)
 
 # Produce random text
 random_text = make_text(chain_dict)
