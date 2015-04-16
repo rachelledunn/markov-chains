@@ -30,35 +30,6 @@ def make_chains(corpus1,corpus2):
     
     return markov_dict
 
-    """
-    Our pseudocode, first thoughts:
-
-    first get length of each list 
-
-    corpus_line = range(len(line)) == 0 - 7
-    for i in corpus_line:
-        line[i] = first word in tuple #1
-        line[i + 1] = second word in tuple #1
-        i = i + 1
-
-
-    then take list[0], list[1] = tuple
-    then add one to each index until reach the end of list
-    list[1], list[2] and so on...
-
-    for each tuple
-        take the two words and create a tuple 
-        then we need to count frequency of each tuple (using word count exercise logic)
-        return keys into markov_dict
-        markov_dict[tuple] = value is all immediately trailing words
-
-    Notes:
-    - We learned how to make tuples simply by syntax ()
-    - Without this knowledge, we thought there were many more steps!
-
-    """
-
-
 
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
@@ -86,42 +57,10 @@ def make_text(chains):
             
     return new_string
 
-    """
-    new_string = ''
 
-    first_tuple_item = k[0]
-    while an item exists in the dictionary, continue this loop:        
-        find a random first tuple
-        separate key and value
-        turn key into a string
-        append or concatenate to new_string
-        use value checking for matching key in dictionary
-
-    while chains.iteritems() in chains:
-        then take each tuple, pull each string out and add it to new_string
-        then take randomly a value
-        then check for that value against existing key[0]
-        then take that tuple, pull each string out and add it to the new_string
-
-    return new_string
-
-    Our pseudocode:
-    Using our Markov dictionary from make_chains(),
-    using .popitem(), get first key for making new string of text.
-
-    (Would, you) -> could could could like like could
-    (could, you) -> in with in with
-    (in, a) -> house, box
-    searching tuples for house... -> does not exist, end function, end of new string
-
-    new_string = Would you could you in a house
-    """
-
-
-# Change this to read input_text from a file, deciding which file should
+# This file uses sys to read input_text from a file, deciding which file should
 # be used by examining the `sys.argv` arguments (if neccessary, see the
 # Python docs for sys.argv)
-
 
 # script,filename1 = sys.argv
 script,filename1,filename2 = sys.argv
